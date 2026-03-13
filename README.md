@@ -66,6 +66,38 @@ const wht = calculateWHT(100000); // 15000
 const tenderWht = calculateWHT(100000, WHT_RATES.PUBLIC_TENDER); // 3000
 ```
 
+### Rendering in Next.js / React
+
+To show the latest tax rates in your UI, you can use the `fetchLatestTaxConfig` and `getTaxSummary` utilities together.
+
+```tsx
+import { useEffect, useState } from 'react';
+import { fetchLatestTaxConfig, getTaxSummary, TaxInfoSummary } from 'rwanda-taxes';
+
+export default function TaxInfoPage() {
+  const [info, setInfo] = useState<TaxInfoSummary | null>(null);
+
+  useEffect(() => {
+    fetchLatestTaxConfig().then(config => {
+      setInfo(getTaxSummary(config));
+    });
+  }, []);
+
+  if (!info) return <div>Loading tax rates...</div>;
+
+  return (
+    <div>
+      <h1>Rwanda Tax Rates ({info.year})</h1>
+      <p>VAT: {info.vat}</p>
+      <h2>PAYE Brackets</h2>
+      <ul>
+        {info.payeBands.map((band, i) => <li key={i}>{band}</li>)}
+      </ul>
+    </div>
+  );
+}
+```
+
 ### Casual Laborer PAYE
 
 ```typescript
