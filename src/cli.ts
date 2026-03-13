@@ -6,14 +6,14 @@ async function run() {
   const summary = getTaxSummary(config);
 
   console.log('--- Rwanda Tax Details (Latest) ---');
-  console.log(`VAT: ${summary.vat}`);
-  console.log(`RSSB Pension: ${summary.rssb.pension}`);
-  console.log(`Maternity Fund: ${summary.rssb.maternity}`);
-  console.log(`Casual Laborer PAYE: ${summary.casualPAYE}`);
-  console.log(`WHT (Standard): ${summary.wht.standard}`);
-  console.log(`WHT (Public Tender): ${summary.wht.publicTender}`);
+  console.log(`VAT: ${summary.display.vat}`);
+  console.log(`RSSB Pension: ${summary.display.rssb.pension}`);
+  console.log(`Maternity Fund: ${summary.display.rssb.maternity}`);
+  console.log(`Casual Laborer PAYE: ${summary.display.casualPAYE}`);
+  console.log(`WHT (Standard): ${summary.display.wht.standard}`);
+  console.log(`WHT (Public Tender): ${summary.display.wht.publicTender}`);
   console.log('\n--- PAYE Brackets (Monthly) ---');
-  summary.payeBands.forEach((band) => console.log(`- ${band}`));
+  summary.display.payeBands.forEach((band) => console.log(`- ${band}`));
   console.log('---------------------------------');
 }
 

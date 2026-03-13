@@ -98,6 +98,29 @@ export default function TaxInfoPage() {
 }
 ```
 
+### Building an API Endpoint (Data Provider)
+
+If you want to create a web API that serves Rwanda tax data to other applications (e.g., in Express or Next.js API Routes):
+
+```typescript
+// pages/api/taxes.ts (Next.js) or routes/taxes.ts (Express)
+import { fetchLatestTaxConfig, getTaxSummary } from 'rwanda-taxes';
+
+export default async function handler(req, res) {
+  // 1. Fetch live rates from GitHub
+  const config = await fetchLatestTaxConfig();
+  
+  // 2. Get the structured summary
+  const taxData = getTaxSummary(config);
+  
+  // 3. Respond with full JSON data
+  res.status(200).json(taxData);
+}
+```
+
+The response will include both **`display`** strings (for UI) and **`raw`** values (for calculations).
+```
+
 ### Casual Laborer PAYE
 
 ```typescript
