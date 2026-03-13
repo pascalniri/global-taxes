@@ -8,6 +8,12 @@ export interface TaxInfoSummary {
     pension: string;
     maternity: string;
   };
+  wht: {
+    standard: string;
+    publicTender: string;
+    import: string;
+  };
+  casualPAYE: string;
   vat: string;
 }
 
@@ -27,6 +33,12 @@ export function getTaxSummary(config: TaxConfig = DEFAULT_TAX_CONFIG_2024): TaxI
       pension: `${config.rssbRate * 100}% (Employee) + ${config.rssbRate * 100}% (Employer)`,
       maternity: `${config.maternityRate * 100}% (Employee) + ${config.maternityRate * 100}% (Employer)`,
     },
+    wht: {
+      standard: '15%',
+      publicTender: '3%',
+      import: '5%',
+    },
+    casualPAYE: '0% up to 60,000 Rwf, then 15% flat rate',
     vat: `${VAT_RATE_RW * 100}%`,
   };
 }
