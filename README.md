@@ -13,7 +13,7 @@ A comprehensive and reliable npm package for fetching and rendering tax informat
 ## Installation
 
 ```bash
-npm install rwanda-taxes
+npm install global-taxes
 ```
 
 ## CLI Usage
@@ -22,11 +22,11 @@ View tax details for any supported country directly from your terminal:
 
 ```bash
 # List all supported countries
-npx rwanda-taxes --list
+npx global-taxes --list
 
 # View details for a specific country (default is RW)
-npx rwanda-taxes --country=US
-npx rwanda-taxes --country=KE
+npx global-taxes --country=US
+npx global-taxes --country=KE
 ```
 
 ## API Usage
@@ -34,7 +34,7 @@ npx rwanda-taxes --country=KE
 ### 1. Fetching Global Data
 
 ```typescript
-import { fetchLatestTaxConfig, getCountryTaxes, getSupportedCountries } from 'rwanda-taxes';
+import { fetchLatestTaxConfig, getCountryTaxes, getSupportedCountries } from 'global-taxes';
 
 async function main() {
   // Fetch the latest global configuration
@@ -57,7 +57,7 @@ async function main() {
 Perfect for creating a centralized data provider for your microservices or frontend:
 
 ```typescript
-import { fetchLatestTaxConfig, getCountryTaxes } from 'rwanda-taxes';
+import { fetchLatestTaxConfig, getCountryTaxes } from 'global-taxes';
 
 export default async function handler(req, res) {
   const { countryCode } = req.query;

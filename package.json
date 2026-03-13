@@ -1,10 +1,10 @@
 {
-  "name": "rwanda-taxes",
-  "version": "2.0.1",
+  "name": "global-taxes",
+  "version": "1.0.0",
   "bin": {
-    "rwanda-taxes": "./dist/cli.js"
+    "global-taxes": "./dist/cli.js"
   },
-  "description": "",
+  "description": "Universal dynamic tax information engine for global countries",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -19,17 +19,27 @@
     "lint": "eslint src/**/*.ts",
     "format": "prettier --write src/**/*.ts"
   },
-  "keywords": [],
+  "keywords": [
+    "taxes",
+    "rwanda",
+    "global",
+    "africa",
+    "kenya",
+    "usa",
+    "uk",
+    "tax-rates",
+    "api"
+  ],
   "author": "Pascal Niri",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pascalniri/rwanda-taxes.git"
+    "url": "git+https://github.com/pascalniri/global-taxes.git"
   },
   "bugs": {
-    "url": "https://github.com/pascalniri/rwanda-taxes/issues"
+    "url": "https://github.com/pascalniri/global-taxes/issues"
   },
-  "homepage": "https://github.com/pascalniri/rwanda-taxes#readme",
+  "homepage": "https://github.com/pascalniri/global-taxes#readme",
   "type": "commonjs",
   "devDependencies": {
     "@types/node": "^25.5.0",
