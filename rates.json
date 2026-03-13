@@ -1,0 +1,10 @@
+{
+  "payeBands": [
+    { "min": 0, "max": 60000, "rate": 0 },
+    { "min": 60000, "max": 100000, "rate": 0.1 },
+    { "min": 100000, "max": 200000, "rate": 0.2 },
+    { "min": 200000, "max": null, "rate": 0.3 }
+  ],
+  "rssbRate": 0.03,
+  "maternityRate": 0.003
+}
