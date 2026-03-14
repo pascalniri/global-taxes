@@ -79,11 +79,23 @@ export default async function handler(req, res) {
 ```
 
 ## Supported Countries
-Currently including Rwanda, Kenya, Uganda, South Africa, UK, USA, and more added regularly via remote updates.
+Currently supporting **53+ countries** across 5 continents, including Rwanda, Kenya, Nigeria, Ghana, UK, USA, France, Germany, and many more. Data is updated regularly via remote fetching.
+
+
+## Sponsorship
+
+If you find this package useful and would like to support its development and the addition of more countries, please consider sponsoring the project!
+
+- [GitHub Sponsors](https://github.com/sponsors/pascalniri)
+- [Buy Me a Coffee](https://www.buymeacoffee.com/pascalniri)
+- [Patreon](https://patreon.com/pascalniri?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink)
+
+Your support helps me maintain the data and add more global tax configurations.
 
 ## Author
 **Pascal Niri**
 - GitHub: [@pascalniri](https://github.com/pascalniri)
+- Portfolio: [pascalkid.vercel.app](https://pascalkid.vercel.app/)
 
 ## License
 MIT
