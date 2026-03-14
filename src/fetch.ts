@@ -1,17 +1,1735 @@
 import { GlobalTaxConfig } from './types';
+
+const LOCAL_RATES: GlobalTaxConfig = {
+  "countries": [
+    {
+      "name": "Rwanda",
+      "code": "RW",
+      "currency": "RWF",
+      "continent": "Africa",
+      "essentialInfo": {
+        "fiscalYear": "July to June",
+        "taxAuthority": "Rwanda Revenue Authority (RRA)",
+        "filingDeadline": "15th of the following month"
+      },
+      "taxes": [
+        {
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 18,
+          "unit": "percent",
+          "description": "Standard consumption tax on goods and services.",
+          "authority": "RRA",
+          "id": "3240b379-4bc5-4010-a6f8-ff0091528e72"
+        },
+        {
+          "name": "Pay As You Earn",
+          "type": "PAYE",
+          "rate": "0-30",
+          "unit": "percent",
+          "description": "Progressive tax on employment income.",
+          "bands": [
+            {
+              "min": 0,
+              "max": 60000,
+              "rate": 0,
+              "label": "Exempt"
+            },
+            {
+              "min": 60000,
+              "max": 100000,
+              "rate": 0.1,
+              "label": "Lower Band"
+            },
+            {
+              "min": 100000,
+              "max": 200000,
+              "rate": 0.2,
+              "label": "Middle Band"
+            },
+            {
+              "min": 200000,
+              "max": null,
+              "rate": 0.3,
+              "label": "Higher Band"
+            }
+          ],
+          "id": "85b1ebcb-ac91-4113-a979-285cad03dd6f"
+        },
+        {
+          "name": "Pension Contribution",
+          "type": "RSSB",
+          "rate": 3,
+          "unit": "percent",
+          "description": "Mandatory pension contribution for employees.",
+          "id": "04f7a276-2c77-4fed-a1a1-768392217144"
+        },
+        {
+          "name": "Maternity Leave Fund",
+          "type": "RSSB_MATERNITY",
+          "rate": 0.3,
+          "unit": "percent",
+          "description": "Social security fund for maternity benefits.",
+          "id": "06363788-37b9-4969-a8ae-ed8adb91c8f9"
+        },
+        {
+          "name": "Withholding Tax",
+          "type": "WHT",
+          "rate": 15,
+          "unit": "percent",
+          "description": "Standard WHT on professional services and management fees.",
+          "id": "da2baf84-57fe-44e8-8c19-267ba4eee91e"
+        }
+      ]
+    },
+    {
+      "name": "Kenya",
+      "code": "KE",
+      "currency": "KES",
+      "continent": "Africa",
+      "essentialInfo": {
+        "fiscalYear": "July to June",
+        "taxAuthority": "Kenya Revenue Authority (KRA)",
+        "filingDeadline": "20th of the following month"
+      },
+      "taxes": [
+        {
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 16,
+          "unit": "percent",
+          "description": "Standard rate for taxable supplies.",
+          "id": "08b916a7-e12e-4176-beed-251df23e0cf9"
+        },
+        {
+          "name": "Personal Income Tax",
+          "type": "PAYE",
+          "rate": "10-35",
+          "unit": "percent",
+          "bands": [
+            {
+              "min": 0,
+              "max": 288000,
+              "rate": 0.1
+            },
+            {
+              "min": 288001,
+              "max": 388000,
+              "rate": 0.25
+            },
+            {
+              "min": 388001,
+              "max": 6000000,
+              "rate": 0.3
+            },
+            {
+              "min": 6000001,
+              "max": 9600000,
+              "rate": 0.325
+            },
+            {
+              "min": 9600001,
+              "max": null,
+              "rate": 0.35
+            }
+          ],
+          "id": "edada365-f511-41a3-b804-071520d1a088"
+        },
+        {
+          "name": "Corporate Tax (Resident)",
+          "type": "CIT",
+          "rate": 30,
+          "unit": "percent",
+          "id": "4c2a746b-5af7-479f-9198-40a58847f556"
+        }
+      ]
+    },
+    {
+      "name": "Uganda",
+      "code": "UG",
+      "currency": "UGX",
+      "continent": "Africa",
+      "essentialInfo": {
+        "fiscalYear": "July to June",
+        "taxAuthority": "Uganda Revenue Authority (URA)",
+        "filingDeadline": "15th of the following month"
+      },
+      "taxes": [
+        {
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 18,
+          "unit": "percent",
+          "id": "7df86157-625c-44d1-a0a4-399249ad93e3"
+        },
+        {
+          "name": "Pay As You Earn",
+          "type": "PAYE",
+          "rate": "0-40",
+          "unit": "percent",
+          "id": "a0d3058a-b81b-41bf-bcfb-fca455719770"
+        }
+      ]
+    },
+    {
+      "name": "South Africa",
+      "code": "ZA",
+      "currency": "ZAR",
+      "continent": "Africa",
+      "essentialInfo": {
+        "fiscalYear": "March to February",
+        "taxAuthority": "South African Revenue Service (SARS)",
+        "filingDeadline": "Varies (Sept-Jan for individuals)"
+      },
+      "taxes": [
+        {
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 15,
+          "unit": "percent",
+          "id": "62afe6dc-0fdc-479a-911f-3cf74cd153bc"
+        },
+        {
+          "name": "Individual Income Tax",
+          "type": "PAYE",
+          "rate": "18-45",
+          "unit": "percent",
+          "id": "729f8161-226d-47f7-8670-351cfd40979f"
+        },
+        {
+          "name": "Corporate Tax",
+          "type": "CIT",
+          "rate": 27,
+          "unit": "percent",
+          "id": "da5d86e9-7c15-4b66-a4ca-b175dd8f7bb7"
+        }
+      ]
+    },
+    {
+      "name": "United Kingdom",
+      "code": "GB",
+      "currency": "GBP",
+      "continent": "Europe",
+      "essentialInfo": {
+        "fiscalYear": "April to April",
+        "taxAuthority": "HM Revenue & Customs (HMRC)",
+        "filingDeadline": "31 January (online)"
+      },
+      "taxes": [
+        {
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 20,
+          "unit": "percent",
+          "id": "00cc6632-2604-42ff-a7e4-061a7c1e368f"
+        },
+        {
+          "name": "Income Tax",
+          "type": "PAYE",
+          "rate": "20-45",
+          "unit": "percent",
+          "id": "8eed494d-605d-4df8-869c-f6083c946ca7"
+        },
+        {
+          "name": "Corporation Tax",
+          "type": "CIT",
+          "rate": "19-25",
+          "unit": "percent",
+          "id": "18fad2d8-e4aa-43a3-8f24-32205e3acae7"
+        }
+      ]
+    },
+    {
+      "name": "United States",
+      "code": "US",
+      "currency": "USD",
+      "continent": "North America",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "Internal Revenue Service (IRS)",
+        "filingDeadline": "April 15"
+      },
+      "taxes": [
+        {
+          "name": "Federal Income Tax",
+          "type": "INCOME",
+          "rate": "10-37",
+          "unit": "percent",
+          "id": "f12d9d1e-de59-470d-85d2-764fb950609a"
+        },
+        {
+          "name": "Corporate Tax",
+          "type": "CIT",
+          "rate": 21,
+          "unit": "percent",
+          "id": "95dc47b2-0220-4950-a400-6519ffc94e37"
+        }
+      ]
+    },
+    {
+      "name": "Nigeria",
+      "code": "NG",
+      "currency": "NGN",
+      "continent": "Africa",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "Federal Inland Revenue Service (FIRS)",
+        "filingDeadline": "30th June"
+      },
+      "taxes": [
+        {
+          "id": "addfa5ec-4022-4a9c-9926-22af89218bbd",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 7.5,
+          "unit": "percent",
+          "description": "Consumption tax on goods and services."
+        },
+        {
+          "id": "e03d7782-cb7e-4a0c-a666-ff3c689946a4",
+          "name": "Personal Income Tax",
+          "type": "PAYE",
+          "rate": "7-24",
+          "unit": "percent",
+          "bands": [
+            {
+              "min": 0,
+              "max": 300000,
+              "rate": 0.07,
+              "label": "First 300k"
+            },
+            {
+              "min": 300001,
+              "max": 600000,
+              "rate": 0.11,
+              "label": "Next 300k"
+            },
+            {
+              "min": 600001,
+              "max": 1100000,
+              "rate": 0.15,
+              "label": "Next 500k"
+            },
+            {
+              "min": 1100001,
+              "max": 1600000,
+              "rate": 0.19,
+              "label": "Next 500k"
+            },
+            {
+              "min": 1600001,
+              "max": 3200000,
+              "rate": 0.21,
+              "label": "Next 1.6m"
+            },
+            {
+              "min": 3200001,
+              "max": null,
+              "rate": 0.24,
+              "label": "Above 3.2m"
+            }
+          ]
+        },
+        {
+          "id": "baa81723-3b9f-4e88-a367-db32471be666",
+          "name": "Company Income Tax",
+          "type": "CIT",
+          "rate": 30,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Ghana",
+      "code": "GH",
+      "currency": "GHS",
+      "continent": "Africa",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "Ghana Revenue Authority (GRA)",
+        "filingDeadline": "30th April"
+      },
+      "taxes": [
+        {
+          "id": "5a1f8655-51df-41d3-9cef-340d2b3e9bb0",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 20,
+          "unit": "percent",
+          "description": "Includes 15% VAT, 2.5% NHIL, and 2.5% GETFund."
+        },
+        {
+          "id": "9f4dd49e-9f70-42ad-9a06-f21b335d8eef",
+          "name": "Individual Income Tax",
+          "type": "PAYE",
+          "rate": "0-35",
+          "unit": "percent",
+          "bands": [
+            {
+              "min": 0,
+              "max": 5880,
+              "rate": 0,
+              "label": "Exempt"
+            },
+            {
+              "min": 5881,
+              "max": 7200,
+              "rate": 0.05
+            },
+            {
+              "min": 7201,
+              "max": 8880,
+              "rate": 0.1
+            },
+            {
+              "min": 8881,
+              "max": 42000,
+              "rate": 0.175
+            },
+            {
+              "min": 42001,
+              "max": 240000,
+              "rate": 0.25
+            },
+            {
+              "min": 240001,
+              "max": 600000,
+              "rate": 0.3
+            },
+            {
+              "min": 600001,
+              "max": null,
+              "rate": 0.35
+            }
+          ]
+        },
+        {
+          "id": "66c9c551-a6c6-4178-bea9-82e39b8609b5",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 25,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Tanzania",
+      "code": "TZ",
+      "currency": "TZS",
+      "continent": "Africa",
+      "essentialInfo": {
+        "fiscalYear": "July to June",
+        "taxAuthority": "Tanzania Revenue Authority (TRA)",
+        "filingDeadline": "31st March"
+      },
+      "taxes": [
+        {
+          "id": "a07a15b4-92bc-4e4f-a7e5-65409d769993",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 18,
+          "unit": "percent"
+        },
+        {
+          "id": "741a84a7-1006-4e4f-b61c-647fb9129b10",
+          "name": "Individual Income Tax",
+          "type": "PAYE",
+          "rate": "0-30",
+          "unit": "percent",
+          "bands": [
+            {
+              "min": 0,
+              "max": 270000,
+              "rate": 0
+            },
+            {
+              "min": 270001,
+              "max": 520000,
+              "rate": 0.08
+            },
+            {
+              "min": 520001,
+              "max": 760000,
+              "rate": 0.2
+            },
+            {
+              "min": 760001,
+              "max": 1000000,
+              "rate": 0.25
+            },
+            {
+              "min": 1000001,
+              "max": null,
+              "rate": 0.3
+            }
+          ]
+        },
+        {
+          "id": "0ef1e9ae-7e00-4e99-93b4-c246d6c87a4c",
+          "name": "Corporate Tax",
+          "type": "CIT",
+          "rate": 30,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Ethiopia",
+      "code": "ET",
+      "currency": "ETB",
+      "continent": "Africa",
+      "essentialInfo": {
+        "fiscalYear": "July to July",
+        "taxAuthority": "Ministry of Revenues",
+        "filingDeadline": "Varies"
+      },
+      "taxes": [
+        {
+          "id": "a4a027cb-db91-4e22-886c-21c61a00f144",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 15,
+          "unit": "percent"
+        },
+        {
+          "id": "274dc90d-22c2-479e-b0cd-2dae0b6c23fa",
+          "name": "Employment Income Tax",
+          "type": "PAYE",
+          "rate": "0-35",
+          "unit": "percent",
+          "bands": [
+            {
+              "min": 0,
+              "max": 600,
+              "rate": 0
+            },
+            {
+              "min": 601,
+              "max": 1650,
+              "rate": 0.1
+            },
+            {
+              "min": 1651,
+              "max": 3200,
+              "rate": 0.15
+            },
+            {
+              "min": 3201,
+              "max": 5250,
+              "rate": 0.2
+            },
+            {
+              "min": 5251,
+              "max": 7800,
+              "rate": 0.25
+            },
+            {
+              "min": 7801,
+              "max": 10900,
+              "rate": 0.3
+            },
+            {
+              "min": 10901,
+              "max": null,
+              "rate": 0.35
+            }
+          ]
+        },
+        {
+          "id": "8c1fc5c7-518b-492c-bde4-7ee9aadc89a7",
+          "name": "Business Income Tax",
+          "type": "CIT",
+          "rate": 30,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Egypt",
+      "code": "EG",
+      "currency": "EGP",
+      "continent": "Africa",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "0d1c6832-b30f-40db-afb1-39c61d0f694b",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 14,
+          "unit": "percent"
+        },
+        {
+          "id": "18f00fa4-f591-424e-a1a4-b7992131973b",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 22.5,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Morocco",
+      "code": "MA",
+      "currency": "MAD",
+      "continent": "Africa",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "fb2e2a6c-a420-4cf5-849d-0104ceae0e27",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 20,
+          "unit": "percent"
+        },
+        {
+          "id": "31d99369-2630-4e1e-901f-2fb227d95331",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 20,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Senegal",
+      "code": "SN",
+      "currency": "XOF",
+      "continent": "Africa",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "960aab87-ef1e-44d3-b918-f7dbbcb0b75c",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 18,
+          "unit": "percent"
+        },
+        {
+          "id": "cd919cc8-282e-48d6-a32b-7a58db94b596",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 30,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Cote d'Ivoire",
+      "code": "CI",
+      "currency": "XOF",
+      "continent": "Africa",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "d4339243-cdbd-48bd-8f3d-6094d9cb238a",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 18,
+          "unit": "percent"
+        },
+        {
+          "id": "13d179e3-effc-459d-b972-447fc2e5e4b9",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 25,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Cameroon",
+      "code": "CM",
+      "currency": "XAF",
+      "continent": "Africa",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "28cb33d0-f256-4543-8204-3fa0756f6a6c",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 17.5,
+          "unit": "percent"
+        },
+        {
+          "id": "814653aa-2bdd-4c39-8ca1-8231ac8d0657",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 33,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Zimbabwe",
+      "code": "ZW",
+      "currency": "ZWL",
+      "continent": "Africa",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "0c51f62d-cc55-4261-b7de-76f9b3389da8",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 15.5,
+          "unit": "percent"
+        },
+        {
+          "id": "009676c1-fe92-4ec2-bc12-8c1cd5438774",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 25,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Mauritius",
+      "code": "MU",
+      "currency": "MUR",
+      "continent": "Africa",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "5f537553-281c-4289-a505-6b242e4647fc",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 15,
+          "unit": "percent"
+        },
+        {
+          "id": "059cd54d-53a6-4a59-bbbc-76686ba6637f",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 15,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Algeria",
+      "code": "DZ",
+      "currency": "DZD",
+      "continent": "Africa",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "3e9cfd3c-e7a1-40dc-91a4-3e2a53cd7e7a",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 19,
+          "unit": "percent"
+        },
+        {
+          "id": "286d0304-0b9b-4207-afe8-db20087141af",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 26,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Tunisia",
+      "code": "TN",
+      "currency": "TND",
+      "continent": "Africa",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "d58992a5-4304-499a-810b-4bdab13bea1d",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 19,
+          "unit": "percent"
+        },
+        {
+          "id": "00081894-c2c2-4df5-9401-7a002fb39cfa",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 20,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "France",
+      "code": "FR",
+      "currency": "EUR",
+      "continent": "Europe",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "03a0e83f-5c9d-4bfe-8229-2d69eeb0adc7",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 20,
+          "unit": "percent"
+        },
+        {
+          "id": "2dfae818-262b-4815-9106-0daa40a11d47",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 25.8,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Germany",
+      "code": "DE",
+      "currency": "EUR",
+      "continent": "Europe",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "dc0b703d-e0de-4fd8-9adf-4de31331954d",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 19,
+          "unit": "percent"
+        },
+        {
+          "id": "24af7af4-de41-42a0-83d4-3e5486e314e6",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 30.1,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Italy",
+      "code": "IT",
+      "currency": "EUR",
+      "continent": "Europe",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "3774aae5-8de9-4074-bc58-d16657b27718",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 22,
+          "unit": "percent"
+        },
+        {
+          "id": "471b1770-bcc7-406d-b076-53a47495218c",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 27.8,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Spain",
+      "code": "ES",
+      "currency": "EUR",
+      "continent": "Europe",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "2f642bbc-6ac5-4dba-85ad-6e7d267b8120",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 21,
+          "unit": "percent"
+        },
+        {
+          "id": "f9eb13ff-eab8-4c9b-8120-3efd632a37b9",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 25,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Netherlands",
+      "code": "NL",
+      "currency": "EUR",
+      "continent": "Europe",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "6ddd9df0-dcac-45e0-a6e7-7b387e45b49a",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 21,
+          "unit": "percent"
+        },
+        {
+          "id": "911f30bb-08ee-4eb6-9ded-f0adce21a367",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 25.8,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Switzerland",
+      "code": "CH",
+      "currency": "CHF",
+      "continent": "Europe",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "bfd3020d-98cb-49d2-ba69-9523d5826f37",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 8.1,
+          "unit": "percent"
+        },
+        {
+          "id": "95206b30-8124-4aa2-bcb3-4103cc8bf9d9",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 14.4,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Sweden",
+      "code": "SE",
+      "currency": "SEK",
+      "continent": "Europe",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "52a0ff14-bf6f-43c4-9c94-010048f4c8d1",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 25,
+          "unit": "percent"
+        },
+        {
+          "id": "71e39196-692a-4cd5-aa0d-cc9d2547ba21",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 20.6,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Norway",
+      "code": "NO",
+      "currency": "NOK",
+      "continent": "Europe",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "db513679-aa85-4f7f-9ee3-61c0fc41c69f",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 25,
+          "unit": "percent"
+        },
+        {
+          "id": "b47e4d88-066a-485f-ba69-57237fd40bc6",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 22,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Ireland",
+      "code": "IE",
+      "currency": "EUR",
+      "continent": "Europe",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "83bba7dc-1a80-49ed-aaa3-220bec708810",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 23,
+          "unit": "percent"
+        },
+        {
+          "id": "1da03690-9b6f-434c-970f-999042124716",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 12.5,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Belgium",
+      "code": "BE",
+      "currency": "EUR",
+      "continent": "Europe",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "5568d449-9dd6-4cf7-bf2f-7915280a28a5",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 21,
+          "unit": "percent"
+        },
+        {
+          "id": "babc2778-5b24-4bdc-8048-90e184f105dc",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 25,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Austria",
+      "code": "AT",
+      "currency": "EUR",
+      "continent": "Europe",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "82f117c2-ef9c-4b0f-8310-c66fdb438d27",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 20,
+          "unit": "percent"
+        },
+        {
+          "id": "8b02b8b8-ce69-46ef-878a-37448788edc2",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 23,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "India",
+      "code": "IN",
+      "currency": "INR",
+      "continent": "Asia",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "db2a2f79-3ce1-492a-83e9-1737b97738ef",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 18,
+          "unit": "percent"
+        },
+        {
+          "id": "83a57f96-f54a-44c8-b48a-1e5cfe4314bd",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 30,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "China",
+      "code": "CN",
+      "currency": "CNY",
+      "continent": "Asia",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "5e089ca4-1cec-4c84-bee6-61f4238f064b",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 13,
+          "unit": "percent"
+        },
+        {
+          "id": "525ad205-cab5-4963-b800-067305e26590",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 25,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Japan",
+      "code": "JP",
+      "currency": "JPY",
+      "continent": "Asia",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "9d202186-2425-4eab-aa83-caf2ab5ca514",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 10,
+          "unit": "percent"
+        },
+        {
+          "id": "4b8646a4-13d5-46ad-b90d-8fdc617e8af9",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 31.5,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Singapore",
+      "code": "SG",
+      "currency": "SGD",
+      "continent": "Asia",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "fa9cb978-fb00-452d-bafd-b5469d8d65dd",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 9,
+          "unit": "percent"
+        },
+        {
+          "id": "cf2d5c57-9c8a-4e60-9f4f-83719e5e61f5",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 17,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "UAE",
+      "code": "AE",
+      "currency": "AED",
+      "continent": "Asia",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "c70661a9-3409-43f7-b3e1-9b9d92ec2289",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 5,
+          "unit": "percent"
+        },
+        {
+          "id": "3fc16b4c-4021-4119-bfa4-048bb2d766a8",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 9,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Saudi Arabia",
+      "code": "SA",
+      "currency": "SAR",
+      "continent": "Asia",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "d596dd1b-8ee5-4423-a06b-b719790c7fd6",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 15,
+          "unit": "percent"
+        },
+        {
+          "id": "4f4efd3c-855b-424d-8211-eed3a7e362a0",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 20,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Israel",
+      "code": "IL",
+      "currency": "ILS",
+      "continent": "Asia",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "68a6b274-a3b5-4136-bc0e-607eca3e6f91",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 18,
+          "unit": "percent"
+        },
+        {
+          "id": "56b8c355-87f1-4f8d-9f45-e70527cae404",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 23,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "South Korea",
+      "code": "KR",
+      "currency": "KRW",
+      "continent": "Asia",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "7e2dc056-d753-4d4f-85d2-5c8b389b2fea",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 10,
+          "unit": "percent"
+        },
+        {
+          "id": "fe5c21d1-cdeb-4d3f-b698-7f1885f9d0f5",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 25,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Thailand",
+      "code": "TH",
+      "currency": "THB",
+      "continent": "Asia",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "93d684df-1ece-4e85-a38f-8656ac8c14b4",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 7,
+          "unit": "percent"
+        },
+        {
+          "id": "39846a8d-9b98-4841-bc45-d55b316ccd64",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 20,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Vietnam",
+      "code": "VN",
+      "currency": "VND",
+      "continent": "Asia",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "5b398386-9a01-4a06-9e23-f79e7647cdf1",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 10,
+          "unit": "percent"
+        },
+        {
+          "id": "d8839dca-5163-486e-820f-cf29dd5d547e",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 20,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Portugal",
+      "code": "PT",
+      "currency": "EUR",
+      "continent": "Europe",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "32d76b80-d913-4586-aa44-e8774c2e6dd9",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 23,
+          "unit": "percent"
+        },
+        {
+          "id": "858d1f0a-907d-469e-ae40-aab7bc8e15e0",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 21,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Greece",
+      "code": "GR",
+      "currency": "EUR",
+      "continent": "Europe",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "a4aa9c71-462c-47dc-a0d8-393cd987ef9d",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 24,
+          "unit": "percent"
+        },
+        {
+          "id": "7450e7a8-fed4-4c54-bb20-c650b9420b8b",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 22,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Denmark",
+      "code": "DK",
+      "currency": "DKK",
+      "continent": "Europe",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "ea02e0c9-bb75-4e55-84bc-d3db30634a61",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 25,
+          "unit": "percent"
+        },
+        {
+          "id": "1abbaee5-fa2d-4304-a349-44e41ad67a83",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 22,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Finland",
+      "code": "FI",
+      "currency": "EUR",
+      "continent": "Europe",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "57dd2fb9-e9e6-456e-a95c-701445f68240",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 25.5,
+          "unit": "percent"
+        },
+        {
+          "id": "0ddcfbbc-a0e9-4771-b57f-4c7fa8e0d225",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 22,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Canada",
+      "code": "CA",
+      "currency": "CAD",
+      "continent": "North America",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "1dc9a9b4-55b6-412a-b42b-ff982df35a37",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 13,
+          "unit": "percent"
+        },
+        {
+          "id": "7e5f4a2b-ba7b-441c-97d9-9050b3bd1d33",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 27,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Mexico",
+      "code": "MX",
+      "currency": "MXN",
+      "continent": "North America",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "2c1c6b42-a248-4603-a443-a473cc1f2f46",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 16,
+          "unit": "percent"
+        },
+        {
+          "id": "98e7b690-e17e-45e9-beaa-0b2f05c0428f",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 30,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Brazil",
+      "code": "BR",
+      "currency": "BRL",
+      "continent": "South America",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "ba7cbbc6-ee8f-47c4-ad51-88e588df69ad",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 26.5,
+          "unit": "percent"
+        },
+        {
+          "id": "1c75a57f-b3a9-4156-92fb-4b9a6cf765a3",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 34,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Argentina",
+      "code": "AR",
+      "currency": "ARS",
+      "continent": "South America",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "0a6f280e-4e84-4c57-ae52-c1a57694b52b",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 21,
+          "unit": "percent"
+        },
+        {
+          "id": "5ff5dd30-aecb-4f89-8be1-1140759d56b9",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 35,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Colombia",
+      "code": "CO",
+      "currency": "COP",
+      "continent": "South America",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "891ff418-9756-4190-9b92-a9fed9dadeca",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 19,
+          "unit": "percent"
+        },
+        {
+          "id": "96719f38-f2f4-4bf1-bc49-1d495dd09d03",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 35,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Chile",
+      "code": "CL",
+      "currency": "CLP",
+      "continent": "South America",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "61b19a6f-9343-400e-b97f-d0ac2b706e4f",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 19,
+          "unit": "percent"
+        },
+        {
+          "id": "a8d1f91b-8537-466e-9fd2-d45116a5a0a5",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 27,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Peru",
+      "code": "PE",
+      "currency": "PEN",
+      "continent": "South America",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "806242d4-c431-4ec4-a041-b41c513fc1ce",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 18,
+          "unit": "percent"
+        },
+        {
+          "id": "6fcaa507-b289-4c9e-bb4d-ff2db757904f",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 29.5,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "Australia",
+      "code": "AU",
+      "currency": "AUD",
+      "continent": "Oceania",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "4603e8e7-3d71-49f4-b368-db00211dcc1c",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 10,
+          "unit": "percent"
+        },
+        {
+          "id": "5265c987-0aa6-4e95-8050-4ecfc7dbe8d3",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 30,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "name": "New Zealand",
+      "code": "NZ",
+      "currency": "NZD",
+      "continent": "Oceania",
+      "essentialInfo": {
+        "fiscalYear": "January to December",
+        "taxAuthority": "National Revenue Authority",
+        "filingDeadline": "Variable"
+      },
+      "taxes": [
+        {
+          "id": "9f70631a-21fd-43ff-ab7b-3aed352c6617",
+          "name": "Value Added Tax",
+          "type": "VAT",
+          "rate": 15,
+          "unit": "percent"
+        },
+        {
+          "id": "928a2cb6-fc30-4fef-ba10-ed524c82343c",
+          "name": "Corporate Income Tax",
+          "type": "CIT",
+          "rate": 28,
+          "unit": "percent"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "lastUpdated": "2026-03-14",
+    "version": "2.0.0"
+  }
+};
+
 const REMOTE_RATES_URL = 'https://raw.githubusercontent.com/pascalniri/rwanda-taxes/main/rates.json';
 
 /**
- * Fetches the latest global tax configurations from the central repository.
+ * Fetches the latest global tax configurations.
+ * @param options Configuration options
  * @returns The global tax configuration
  */
-export async function fetchLatestTaxConfig(): Promise<GlobalTaxConfig> {
+export async function fetchLatestTaxConfig(options: { useLocalOnly?: boolean } = {}): Promise<GlobalTaxConfig> {
+  if (options.useLocalOnly) {
+    return LOCAL_RATES;
+  }
+
   try {
     const response = await fetch(REMOTE_RATES_URL);
     if (!response.ok) throw new Error('Failed to fetch remote rates');
     return await response.json();
   } catch (error) {
-    console.warn('Global-Taxes: Error fetching remote rates. Using local data if available.');
-    throw error;
+    console.warn('Global-Taxes: Error fetching remote rates. Using local data fallback.');
+    return LOCAL_RATES;
   }
 }

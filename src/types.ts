@@ -4,6 +4,7 @@ export interface TaxRateUnit {
 }
 
 export interface TaxDefinition {
+  id: string;
   name: string;
   type: string;
   rate: string | number;

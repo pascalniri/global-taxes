@@ -15,7 +15,7 @@ describe('Global Taxes Data Provider', () => {
           filingDeadline: 'April 1'
         },
         taxes: [
-          { name: 'Test VAT', type: 'VAT', rate: 10, unit: 'percent' }
+          { id: 'test-uuid-1', name: 'Test VAT', type: 'VAT', rate: 10, unit: 'percent' }
         ]
       }
     ]

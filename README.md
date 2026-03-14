@@ -38,7 +38,8 @@ import { fetchLatestTaxConfig, getCountryTaxes, getSupportedCountries } from 'gl
 
 async function main() {
   // Fetch the latest global configuration
-  const config = await fetchLatestTaxConfig();
+  // Use { useLocalOnly: true } to bypass remote fetch and use embedded UUIDs immediately
+  const config = await fetchLatestTaxConfig({ useLocalOnly: true });
 
   // List all available countries
   const countries = getSupportedCountries(config);
